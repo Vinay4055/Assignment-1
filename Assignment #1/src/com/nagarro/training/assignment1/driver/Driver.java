@@ -71,7 +71,7 @@ public class Driver {
 		   input=sc.nextLine();
 		   }
 		   else { 
-			   System.out.println("Insufficient Information");
+			   System.out.println("Invalid Information");
 		   	   System.out.println("The Input Should Be in the form\n"
 					+ "-name item_name "
 					+ "-price item_price "
