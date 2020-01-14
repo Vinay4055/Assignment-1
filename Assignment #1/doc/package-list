@@ -1,0 +1,5 @@
+com.nagarro.training.assignment1.driver
+com.nagarro.training.assignment1.entity
+com.nagarro.training.assignment1.repository
+com.nagarro.training.assignment1.service
+com.nagarro.training.assignment1.util
