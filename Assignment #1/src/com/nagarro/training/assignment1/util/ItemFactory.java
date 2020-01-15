@@ -1,7 +1,7 @@
 /*
 * Class name : ItemFactory
 *
-* Version info : Java 8
+* Version info : 1.0
 *
 * Copyright notice
 * 
@@ -21,80 +21,62 @@
 package com.nagarro.training.assignment1.util;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
-
+import java.util.stream.Collectors;
 import com.nagarro.training.assignment1.entity.Item;
+
 /**
  * 1.This class is a factory class which creates Object of Item class<br>
  * 2.Add it to a ArrayList and returns that list of objects<br>
+ * 
  * @author vinayprajapati
  *
  */
 public class ItemFactory {
 	Item item;
+
 	/**
 	 * Creates the List Of Objects from given input.
-	 *  @return List of Item objects
+	 * 
+	 * @return List of Item objects
 	 */
-	public static List<Item> createItemObjectList(ArrayList list,String[] args) throws ArrayIndexOutOfBoundsException,NullPointerException,NumberFormatException
-	{
-		
-		ArrayList<Item> itemObjectList=null;
-		
-		Iterator<String> iterator = list.iterator();
-		ArrayList<String> seperatedList = new ArrayList<String>();
-		String [] temp = null;
-		ArrayList<String> commandLineInput = new ArrayList<String>();
-		for(int i=0; i<args.length; i++)
-		{
-			if ( i%2 == 0)
-				commandLineInput.add(args[i].substring(1));
-			else
-				commandLineInput.add(args[i]);
-		}
+	public static List<Item> createItemObjectList(ArrayList<String> list, ArrayList<String> commandLineInput)
+			throws ArrayIndexOutOfBoundsException, NullPointerException, NumberFormatException {
+
+		ArrayList<Item> itemObjectList = null;
+
 		commandLineInput.addAll(list);
-		Iterator<String> itemIterator = commandLineInput.iterator();
 		ItemFactory driver = new ItemFactory();
 		itemObjectList = new ArrayList<Item>();
-		
-		for(int i=0; i<commandLineInput.size()-1; i += 2)
-		{
-			
-			
-				if (i%8 == 0)
-				{
-					
-					driver.item=new Item();
-					driver.item.setName(commandLineInput.get(i+1));
-				}
-				
-				
-				if (commandLineInput.get(i).equalsIgnoreCase("price"))
-				{
-					
-					driver.item.setPrice(Double.parseDouble(commandLineInput.get(i+1)));
-	
-				}
-				else if (commandLineInput.get(i).equalsIgnoreCase("quantity"))
-				{
-					driver.item.setQuantity(Integer.parseInt(commandLineInput.get(i+1)));
-					
-				}
-				else if (commandLineInput.get(i).equalsIgnoreCase("type"))
-				{
-					driver.item.setType(commandLineInput.get(i+1));
-					
-				}
-			
-					
-				if (i%6 == 0 && i != 0)
-				{
-					
-					itemObjectList.add(driver.item);
-				}
-				}
-		return itemObjectList;
+
+		for (int i = 0; i < commandLineInput.size() - 1; i += 2) {
+
+			if (i % 8 == 0) {
+
+				driver.item = new Item();
+				driver.item.setName(commandLineInput.get(i + 1));
+			}
+
+			if (commandLineInput.get(i).equalsIgnoreCase("price")) {
+
+				driver.item.setPrice(Double.parseDouble(commandLineInput.get(i + 1)));
+
+			} else if (commandLineInput.get(i).equalsIgnoreCase("quantity")) {
+				driver.item.setQuantity(Integer.parseInt(commandLineInput.get(i + 1)));
+
+			} else if (commandLineInput.get(i).equalsIgnoreCase("type")) {
+
+				driver.item.setType(commandLineInput.get(i + 1));
+
+			}
+
+			if (i % 6 == 0 && i != 0) {
+
+				itemObjectList.add(driver.item);
+
+			}
+		}
+		return itemObjectList.stream().distinct().collect(Collectors.toList());
 	}
-	
+
 }

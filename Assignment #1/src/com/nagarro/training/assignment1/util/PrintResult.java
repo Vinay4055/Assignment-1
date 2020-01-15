@@ -1,7 +1,7 @@
 /*
 * Class name : PrintResult
 *
-* Version info : Java 8
+* Version info : 1.0
 *
 * Copyright notice
 * 
@@ -20,13 +20,24 @@ package com.nagarro.training.assignment1.util;
 import com.nagarro.training.assignment1.entity.Item;
 
 public class PrintResult {
-	/*
-	 * Prints  Item_Name,Item_Price,Tax,Item_FinalPrice
+	static int i = 1;
+
+	/**
+	 * Prints Item_Name,Item_Price,Tax,Item_FinalPrice
+	 * 
+	 * @param
 	 */
-	public static void printResult(Item item , double calculatedTax) throws ArrayIndexOutOfBoundsException,NullPointerException
-	{
-		double finalPrice = item.getPrice()+calculatedTax;
-		System.out.print(item.getName()+","+item.getPrice()+","+calculatedTax+","+finalPrice);
+	public static void printResult(Item item, double calculatedTax)
+			throws ArrayIndexOutOfBoundsException, NullPointerException {
+		if (i == 1) {
+			i++;
+			System.out.println("Item Name\t\tPrice\t\tTax\t\tFinal Price\t\t");
+		}
+		double finalPrice = item.getPrice() + calculatedTax;
+
+		System.out.print(item.getName());
+		System.out.print("\t\t\t" + item.getPrice() + "\t\t" + calculatedTax + "\t\t" + finalPrice);
 		System.out.println();
 	}
+
 }

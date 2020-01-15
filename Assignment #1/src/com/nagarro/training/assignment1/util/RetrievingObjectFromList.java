@@ -1,7 +1,7 @@
 /*
 * Class name : RetrievingObjectFromList
 *
-* Version info : Java 8
+* Version info : 1.0
 *
 * Copyright notice
 * 
@@ -24,32 +24,32 @@ import java.util.List;
 import com.nagarro.training.assignment1.entity.Item;
 import com.nagarro.training.assignment1.repository.TaxCalculator;
 import com.nagarro.training.assignment1.service.TaxCalculatorImplementation;
+
 /**
  * This class retrieves the Item objects from ItemObjectList
+ * 
  * @author vinayprajapati
  *
  */
 public class RetrievingObjectFromList {
 	/**
-	 * This methods retrieves objects from array list of Item Objects
-	 * and calls printResult method of PrintResult class.
+	 * This methods retrieves objects from array list of Item Objects and calls
+	 * printResult method of PrintResult class.
+	 * 
 	 * @param List<Item> itemObjects
 	 * @throws ArrayIndexOutOfBoundsException
 	 * @throws NullPointerException
 	 */
-	public static void retrieveItemObject(List<Item> itemObjects) throws ArrayIndexOutOfBoundsException,NullPointerException
-	{
-		
-			
-		
-		Iterator iterator = itemObjects.iterator();
+	public static void retrieveItemObject(List<Item> itemObjects)
+			throws ArrayIndexOutOfBoundsException, NullPointerException {
+
+		Iterator<Item> iterator = itemObjects.iterator();
 		TaxCalculator taxCalculator = new TaxCalculatorImplementation();
-		while (iterator.hasNext())
-		{
+		while (iterator.hasNext()) {
 			Item item = (Item) iterator.next();
 			double calculatedTax = taxCalculator.taxCalculation(item);
-			PrintResult.printResult(item,calculatedTax);
+			PrintResult.printResult(item, calculatedTax);
 		}
-		
+
 	}
 }

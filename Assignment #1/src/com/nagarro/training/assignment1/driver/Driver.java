@@ -2,7 +2,7 @@ package com.nagarro.training.assignment1.driver;
 /*
 * Class name : Driver
 *
-* Version info : Java 8
+* Version info : 1.0
 *
 * Copyright notice
 * 
@@ -18,101 +18,89 @@ package com.nagarro.training.assignment1.driver;
  
  */
 
-
+import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Scanner;
-import java.util.StringTokenizer;
-
 import com.nagarro.training.assignment1.entity.Item;
-import com.nagarro.training.assignment1.repository.TaxCalculator;
-import com.nagarro.training.assignment1.service.TaxCalculatorImplementation;
 import com.nagarro.training.assignment1.util.ItemFactory;
+import com.nagarro.training.assignment1.util.ManagingInput;
 import com.nagarro.training.assignment1.util.RetrievingObjectFromList;
+import com.nagarro.training.assignment1.util.Validation;
+
 /**
  * This class is main class that Takes User Input and manages all the exceptions
+ * 
  * @author vinayprajapati
  *
  */
 public class Driver {
-	
-	
-/**
- * 
- * @param args
- */
-	public static void main(String args[])
-	{
-		/*
-		 * Taking Input From User and storing those input to a 
-		 * ArrayList named input,the command line arguments are present in args
-		 */
-		StringTokenizer tokenizer=null;
+
+	/**
+	 * Taking Input From User and storing those input to a ArrayList named input,the
+	 * command line arguments are present in args
+	 * 
+	 * @param args
+	 */
+	public static void main(String args[]) {
+		Scanner sc = null;
+
 		String input;
+		ArrayList<String> commandLineInput = new ArrayList<String>();
+		for (int i = 0; i < args.length; i++) {
+			if (i % 2 == 0)
+				commandLineInput.add(args[i].substring(1));
+			else
+				commandLineInput.add(args[i]);
+		}
+		boolean isValid = Validation.validation(commandLineInput);
+		if (!isValid) {
+			commandLineInput.clear();
+			System.out.println("Invalid Command Line Arguments");
+		}
 		System.out.println("Do you want to enter details of any other item (y/n):");
-		Scanner sc = new Scanner(System.in);
-	    input = sc.nextLine();
-	    ArrayList<String> list = new ArrayList<String>();
-		if (input.equalsIgnoreCase("y")) {
-		do {
-		   System.out.println("Enter Next Item Details");
-		   String str = sc.nextLine();
-		   tokenizer = new StringTokenizer(str,"-");//making tokens of input using delimeter '-'
-		   if (tokenizer.countTokens()==4)
-		   {
-		   while (tokenizer.hasMoreTokens())
-		   {
-			   String temp[]=tokenizer.nextToken().split(" ");//seperating name and item_name using delimeter
-			   list.add(temp[0]);
-			   list.add(temp[1]);
-		   }
-		   System.out.println("Do you want to enter details of any other item (y/n):");
-		   input=sc.nextLine();
-		   }
-		   else { 
-			   System.out.println("Invalid Information,Please Check Your Input");
-		   	   System.out.println("The Input Should Be in the form\n"
-					+ "-name item_name "
-					+ "-price item_price "
-					+ "-quantity item_quantity "
-					+ "-type item_type\n"
-					+ "You can give input in any order but item name should be provided at very first place");
-		   	}
-		}
-		while (input.equalsIgnoreCase("y"));
-		}
-		else if (! (input.equalsIgnoreCase("n")))
-			System.out.println("Select from y/n");
+		sc = new Scanner(System.in);
+		input = sc.nextLine();
+		ArrayList<String> list = new ArrayList<String>();
 		try {
-		List<Item> itemObjectList = ItemFactory.createItemObjectList(list,args);
-		RetrievingObjectFromList.retrieveItemObject(itemObjectList);
-		}
-		catch (NullPointerException | 
-				ArrayIndexOutOfBoundsException |
-				NumberFormatException exception)
-		{
-			
+
+			if (input.equalsIgnoreCase("y")) {
+
+				do {
+					list = ManagingInput.managingInput();
+					System.out.println("Do you want to enter details of any other item (y/n):");
+					input = sc.nextLine();
+
+				}
+
+				while (input.equalsIgnoreCase("y"));
+			} else if (!(input.equalsIgnoreCase("n"))) {
+				System.out.println("Invalid Input");
+				System.out.println("Select from y/n");
+				System.out.println("Invalid Input Exit");
+			}
+
+			List<Item> itemObjectList = ItemFactory.createItemObjectList(list, commandLineInput);
+			RetrievingObjectFromList.retrieveItemObject(itemObjectList);
+
+		} catch (NullPointerException | ArrayIndexOutOfBoundsException | NumberFormatException
+				| IOException exception) {
+			if (exception instanceof NullPointerException)
+				System.out.println("Invalid Arguments");
+			if (exception instanceof NullPointerException)
+				System.out.println("Invalid Arguments");
 			if (exception instanceof NumberFormatException)
-				System.out.println("Please Check Some Of Your Item details \" Price or Quantity should be in Integer Format\"");
-			
-			else if (exception instanceof ArrayIndexOutOfBoundsException)
-			{
-			System.out.println("Invalid Input\n"
-					+ "The Input Should Be in the form\n"
-					+ "-name item_name "
-					+ "-price item_price "
-					+ "-quantity item_quantity "
-					+ "-type item_type\n"
-					+ "You can give input in any order but item name should be provided at very first place");
-			
+				System.out.println(
+						"Please Check Some Of Your Item details \" Price or Quantity should be in Integer Format\"");
+
+			else if (exception instanceof ArrayIndexOutOfBoundsException) {
+				System.out.println("Invalid Input\n" + "The Input Should Be in the form\n" + "-name item_name "
+						+ "-price item_price " + "-quantity item_quantity " + "-type item_type\n"
+						+ "You can give input in any order but item name should be provided at very first place");
+
 			}
 		}
-		finally
-		{
-			sc.close();
-		}
+
 	}
-	
 
 }
