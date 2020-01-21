@@ -23,7 +23,7 @@ import java.util.List;
 
 import com.nagarro.training.assignment1.entity.Item;
 import com.nagarro.training.assignment1.repository.TaxCalculator;
-import com.nagarro.training.assignment1.service.TaxCalculatorImplementation;
+import com.nagarro.training.assignment1.service.TaxCalculatorImpl;
 
 /**
  * This class retrieves the Item objects from ItemObjectList
@@ -44,7 +44,7 @@ public class RetrievingObjectFromList {
 			throws ArrayIndexOutOfBoundsException, NullPointerException {
 
 		Iterator<Item> iterator = itemObjects.iterator();
-		TaxCalculator taxCalculator = new TaxCalculatorImplementation();
+		TaxCalculator taxCalculator = new TaxCalculatorImpl();
 		while (iterator.hasNext()) {
 			Item item = (Item) iterator.next();
 			double calculatedTax = taxCalculator.taxCalculation(item);

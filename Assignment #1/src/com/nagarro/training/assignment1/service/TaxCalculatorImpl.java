@@ -28,7 +28,7 @@ import com.nagarro.training.assignment1.repository.TaxCalculator;
  * @author vinayprajapati
  *
  */
-public class TaxCalculatorImplementation implements TaxCalculator {
+public class TaxCalculatorImpl implements TaxCalculator {
 
 	/**
 	 * Calculates tax for the corresponding Item Object on the basis of item
